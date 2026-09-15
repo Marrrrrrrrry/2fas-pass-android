@@ -26,6 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
@@ -229,7 +230,8 @@ private fun LazyListScope.nameTextField(
             labelText = MdtLocale.strings.wifiNameLabel,
             modifier = Modifier
                 .fillMaxWidth()
-                .animateItem(),
+                .animateItem()
+                .testTag("wifiNameField"),
             singleLine = true,
             maxLines = 1,
             keyboardOptions = KeyboardOptions(
@@ -260,7 +262,8 @@ private fun LazyListScope.ssidTextField(
             labelText = MdtLocale.strings.wifiSsidLabel,
             modifier = Modifier
                 .fillMaxWidth()
-                .animateItem(),
+                .animateItem()
+                .testTag("wifiSsidField"),
             singleLine = true,
             maxLines = 1,
             keyboardOptions = KeyboardOptions(
@@ -286,7 +289,8 @@ private fun LazyListScope.passwordTextField(
             maxLines = 1,
             modifier = Modifier
                 .fillMaxWidth()
-                .animateItem(),
+                .animateItem()
+                .testTag("wifiPasswordField"),
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Password,
                 imeAction = ImeAction.Next,
@@ -324,12 +328,14 @@ private fun LazyListScope.wifiSecurityTypePicker(
             value = uiState.itemContent?.securityType?.formatName() ?: "",
             label = MdtLocale.strings.wifiSecurityTypeLabel,
             dropdownVisible = dropdownVisible,
+            testTag = "wifiSecurityTypeDropdown",
             onShowDropdown = onClick,
             onDismissDropdown = onDropdownDismiss,
         ) {
             WifiSecurityType.values().forEach { wifiSecurityType ->
                 WifiSecurityTypeMenuItem(
                     text = wifiSecurityType.formatName(),
+                    testTag = "wifiSecurityTypeOptionRow_${wifiSecurityType.value}",
                     checked = wifiSecurityType == (
                         uiState.itemContent?.securityType
                             ?: WifiSecurityType.None
@@ -342,10 +348,11 @@ private fun LazyListScope.wifiSecurityTypePicker(
 }
 
 @Composable
-private fun WifiSecurityTypeMenuItem(text: String, checked: Boolean, onClick: () -> Unit) {
+private fun WifiSecurityTypeMenuItem(text: String, testTag: String, checked: Boolean, onClick: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
+            .testTag(testTag)
             .clickable { onClick() }
             .padding(
                 PaddingValues(
@@ -379,6 +386,7 @@ private fun LazyListScope.scanQrCode(onClick: () -> Unit) {
                 .fillMaxWidth()
                 .clip(RoundedShape12)
                 .background(MdtTheme.color.surfaceContainer)
+                .testTag("wifiScanQrCodeRow")
                 .clickable(onClick = onClick)
                 .padding(horizontal = OptionEntryPaddingHorizontal),
             external = true,
@@ -397,6 +405,7 @@ private fun LazyListScope.hiddenSwitch(
         OptionSwitch(
             title = MdtLocale.strings.wifiHiddenNetworkLabel,
             checked = uiState.itemContent?.hidden ?: false,
+            testTag = "wifiHiddenNetworkSwitch",
             onToggle = onValueChange,
         )
     }
@@ -498,11 +507,13 @@ private fun WifiSecurityTypeMenuItemPreview() {
         Column {
             WifiSecurityTypeMenuItem(
                 text = WifiSecurityType.None.value,
+                testTag = "wifiSecurityTypeOptionRow_${WifiSecurityType.None.value}",
                 checked = true,
                 onClick = {},
             )
             WifiSecurityTypeMenuItem(
                 text = WifiSecurityType.Wpa2.value,
+                testTag = "wifiSecurityTypeOptionRow_${WifiSecurityType.Wpa2.value}",
                 checked = false,
                 onClick = {},
             )

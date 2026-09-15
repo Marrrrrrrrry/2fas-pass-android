@@ -33,6 +33,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
@@ -136,7 +137,8 @@ private fun Content(
                     labelText = strings.secureNoteName,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .animateItem(),
+                        .animateItem()
+                        .testTag("secureNoteNameField"),
                     singleLine = true,
                     maxLines = 1,
                     keyboardOptions = KeyboardOptions(
@@ -172,7 +174,8 @@ private fun Content(
                         enabled = showText,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .alpha(if (showText) 1f else 0f),
+                            .alpha(if (showText) 1f else 0f)
+                            .testTag("secureNoteTextField"),
                     )
 
                     AnimatedFadeVisibility(showText.not()) {
@@ -181,6 +184,7 @@ private fun Content(
                                 .fillMaxSize()
                                 .clip(RoundedShape16)
                                 .background(MdtTheme.color.surfaceContainer)
+                                .testTag("secureNoteRevealTextButton")
                                 .clickable { revealTextClicked = true },
                         ) {
                             TextIcon(

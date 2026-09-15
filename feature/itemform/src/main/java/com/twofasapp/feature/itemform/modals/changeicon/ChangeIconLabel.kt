@@ -27,6 +27,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.tooling.preview.Preview
@@ -72,7 +73,8 @@ internal fun ChangeIconLabel(
         keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp),
+            .padding(horizontal = 16.dp)
+            .testTag("changeIconLabelField"),
     )
 
     OptionHeader(text = strings.changeIconBackgroundHeader)
@@ -118,6 +120,7 @@ internal fun ChangeIconLabel(
                     modifier = Modifier
                         .size(36.dp)
                         .clip(CircleShape)
+                        .testTag("changeIconColorOption_${color.removePrefix("#")}")
                         .clickable { colorController.selectByColor(color = color.hexToColor(), true) }
                         .border(1.dp, MdtTheme.color.outline, CircleShape)
                         .padding(4.dp)

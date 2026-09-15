@@ -90,7 +90,7 @@ object DecryptionKitGenerator {
                             true,
                         )
 
-                        val fontStream = context.assets.open("fonts/Helvetica.ttf")
+                        val fontStream = context.assets.open("fonts/NotoSans.ttf")
                         val font = PDType0Font.load(document, fontStream)
 
                         renderDate(
