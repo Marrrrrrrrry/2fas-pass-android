@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Chinese has no plural inflection; only the "other" quantity is required -->
+<resources>
+    <plurals name="past_duration_seconds">
+        <item quantity="other">刚刚</item>
+    </plurals>
+    <plurals name="past_duration_minutes">
+        <item quantity="other">%d 分钟前</item>
+    </plurals>
+    <plurals name="past_duration_hours">
+        <item quantity="other">%d 小时前</item>
+    </plurals>
+    <plurals name="past_duration_days">
+        <item quantity="other">%d 天前</item>
+    </plurals>
+    <plurals name="past_duration_weeks">
+        <item quantity="other">%d 周前</item>
+    </plurals>
+    <plurals name="past_duration_months">
+        <item quantity="other">%d 个月前</item>
+    </plurals>
+</resources>
